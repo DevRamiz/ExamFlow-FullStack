@@ -1,0 +1,23 @@
+digraph C {
+  graph [rankdir=TB, bgcolor="white", pad=0.4, nodesep=0.35, ranksep=0.6, fontname="Arial"];
+  node [shape=record, style="rounded,filled", fillcolor="#F8FAFC", color="#CBD5E1", fontname="Arial"];
+  edge [color="#64748B", fontname="Arial", arrowsize=0.8];
+  User [label="{User|id\lname\lemail\lrole\l}", fillcolor="#EEF2FF", color="#6366F1"];
+  Exam [label="{Exam|title\ldurationMinutes\lstatus\lquestions\l|publish()\lclose()\l}"];
+  Question [label="{Question|id\ltype\ltext\lpoints\loptions\lcorrectAnswer\l}"];
+  Submission [label="{Submission|answers\lstatus\lautoScore\lmanualScore\lfinalScore\l|submit()\lgrade()\l}"];
+  Answer [label="{Answer|questionId\lvalue\lautomaticPoints\lmanualPoints\lteacherComment\l}"];
+  AuthService [label="{AuthService|registerStudent()\llogin()\lgetCurrentUser()\l}", fillcolor="#ECFDF5", color="#10B981"];
+  ExamService [label="{ExamService|createExam()\lupdateExam()\lpublishExam()\llistExams()\l}", fillcolor="#ECFDF5", color="#10B981"];
+  SubmissionService [label="{SubmissionService|startSubmission()\lautosaveSubmission()\lsubmitExam()\lgradeSubmission()\l}", fillcolor="#ECFDF5", color="#10B981"];
+  GradingService [label="{GradingService|gradeAutomaticQuestions()\lapplyManualGrades()\l}", fillcolor="#FFF7ED", color="#FB923C"];
+  User -> Exam [label="lecturer"];
+  User -> Submission [label="student"];
+  Exam -> Question [label="contains", arrowhead=diamond];
+  Exam -> Submission;
+  Submission -> Answer [label="contains", arrowhead=diamond];
+  AuthService -> User [style=dashed];
+  ExamService -> Exam [style=dashed];
+  SubmissionService -> Submission [style=dashed];
+  SubmissionService -> GradingService [style=dashed];
+}

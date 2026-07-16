@@ -1,0 +1,23 @@
+digraph ERD {
+  graph [rankdir=LR, bgcolor="white", pad=0.4, nodesep=0.7, ranksep=0.9, fontname="Arial"];
+  node [shape=plain, fontname="Arial"];
+  edge [color="#64748B", fontname="Arial"];
+  users [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#6366F1">
+      <TR><TD BGCOLOR="#EEF2FF"><B>USERS</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">name</TD></TR><TR><TD ALIGN="LEFT">email (unique)</TD></TR><TR><TD ALIGN="LEFT">password_hash</TD></TR><TR><TD ALIGN="LEFT">role</TD></TR>
+    </TABLE>>];
+  exams [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#10B981">
+      <TR><TD BGCOLOR="#ECFDF5"><B>EXAMS</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">FK lecturer_id</TD></TR><TR><TD ALIGN="LEFT">title / description</TD></TR><TR><TD ALIGN="LEFT">duration / status</TD></TR><TR><TD ALIGN="LEFT">questions JSONB</TD></TR>
+    </TABLE>>];
+  submissions [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#F59E0B">
+      <TR><TD BGCOLOR="#FFFBEB"><B>SUBMISSIONS</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">FK exam_id</TD></TR><TR><TD ALIGN="LEFT">FK student_id</TD></TR><TR><TD ALIGN="LEFT">answers JSONB</TD></TR><TR><TD ALIGN="LEFT">scores / feedback</TD></TR><TR><TD ALIGN="LEFT">status / timestamps</TD></TR>
+    </TABLE>>];
+  users -> exams [label="1 lecturer creates many"];
+  users -> submissions [label="1 student has many"];
+  exams -> submissions [label="1 exam has many"];
+}

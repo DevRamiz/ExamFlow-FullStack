@@ -1,0 +1,14 @@
+digraph S {
+  graph [rankdir=LR, bgcolor="white", pad=0.4, nodesep=0.35, ranksep=0.7, fontname="Arial"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#CBD5E1", fontname="Arial"];
+  edge [color="#64748B", fontname="Arial"];
+  a [label="1. Lecturer fills exam form", fillcolor="#EEF2FF", color="#6366F1"];
+  b [label="2. React sends POST /api/exams + JWT"];
+  c [label="3. API verifies teacher role"];
+  d [label="4. Service validates questions"];
+  e [label="5. PostgreSQL stores draft + JSONB", shape=cylinder, fillcolor="#EFF6FF", color="#3B82F6"];
+  f [label="6. Lecturer publishes exam"];
+  g [label="7. API updates status and broadcasts event", fillcolor="#ECFDF5", color="#10B981"];
+  h [label="8. Students receive notification", fillcolor="#FFF7ED", color="#FB923C"];
+  a->b->c->d->e->f->g->h;
+}

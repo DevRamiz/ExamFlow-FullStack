@@ -1,0 +1,46 @@
+@startuml
+entity users {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR
+  email : VARCHAR <<UNIQUE>>
+  password_hash : TEXT
+  role : teacher | student
+  created_at : TIMESTAMPTZ
+}
+
+entity exams {
+  * id : SERIAL <<PK>>
+  --
+  lecturer_id : INTEGER <<FK>>
+  title : VARCHAR
+  description : TEXT
+  duration_minutes : INTEGER
+  status : draft | published | closed
+  questions : JSONB
+  created_at : TIMESTAMPTZ
+  updated_at : TIMESTAMPTZ
+  published_at : TIMESTAMPTZ
+}
+
+entity submissions {
+  * id : SERIAL <<PK>>
+  --
+  exam_id : INTEGER <<FK>>
+  student_id : INTEGER <<FK>>
+  status : in_progress | submitted | graded
+  answers : JSONB
+  auto_score : NUMERIC
+  manual_score : NUMERIC
+  final_score : NUMERIC
+  feedback : TEXT
+  results_published : BOOLEAN
+  started_at : TIMESTAMPTZ
+  submitted_at : TIMESTAMPTZ
+  graded_at : TIMESTAMPTZ
+}
+
+users ||--o{ exams : lecturer creates
+users ||--o{ submissions : student submits
+exams ||--o{ submissions : contains
+@enduml

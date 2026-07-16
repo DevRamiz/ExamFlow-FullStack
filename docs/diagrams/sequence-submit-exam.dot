@@ -1,0 +1,14 @@
+digraph S {
+  graph [rankdir=LR, bgcolor="white", pad=0.4, nodesep=0.35, ranksep=0.7, fontname="Arial"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#CBD5E1", fontname="Arial"];
+  edge [color="#64748B", fontname="Arial"];
+  a [label="1. Student opens published exam", fillcolor="#EEF2FF", color="#6366F1"];
+  b [label="2. API creates/loads one attempt"];
+  c [label="3. Safe questions returned\n(no correct answers)"];
+  d [label="4. Client autosaves every 10 seconds"];
+  e [label="5. PostgreSQL updates answers JSONB", shape=cylinder, fillcolor="#EFF6FF", color="#3B82F6"];
+  f [label="6. Student submits"];
+  g [label="7. Automatic questions graded", fillcolor="#ECFDF5", color="#10B981"];
+  h [label="8. Submission waits for manual grade"];
+  a->b->c->d->e->f->g->h;
+}

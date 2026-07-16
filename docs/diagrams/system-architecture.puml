@@ -1,0 +1,24 @@
+@startuml
+skinparam componentStyle rectangle
+actor Lecturer
+actor Student
+component "React Client" as Client
+component "Express REST API" as API
+component "JWT Auth Middleware" as Auth
+component "Exam Service" as Exams
+component "Submission & Grading Service" as Subs
+component "WebSocket Notifications" as WS
+database "PostgreSQL" as DB
+
+Lecturer --> Client
+Student --> Client
+Client --> API : HTTPS / JSON + JWT
+Client <--> WS : WebSocket
+API --> Auth
+API --> Exams
+API --> Subs
+Exams --> DB
+Subs --> DB
+Exams --> WS : publish events
+Subs --> WS : result events
+@enduml

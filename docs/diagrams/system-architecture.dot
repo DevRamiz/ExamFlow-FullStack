@@ -1,0 +1,22 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", pad=0.4, nodesep=0.45, ranksep=0.7, fontname="Arial"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#CBD5E1", fontname="Arial", margin="0.18,0.12"];
+  edge [color="#64748B", fontname="Arial", arrowsize=0.8];
+  users [label="Lecturer / Student", shape=oval, fillcolor="#EEF2FF", color="#818CF8"];
+  client [label="React Client\nPages • Components • Auth Context", fillcolor="#EEF2FF", color="#6366F1"];
+  api [label="Node.js / Express API\nRoutes • Controllers • Services", fillcolor="#ECFDF5", color="#10B981"];
+  auth [label="JWT + Role Authorization"];
+  exams [label="Exam Service"];
+  subs [label="Submission & Grading Service"];
+  ws [label="WebSocket Notifications", fillcolor="#FFF7ED", color="#FB923C"];
+  db [label="PostgreSQL\nusers • exams JSONB • submissions JSONB", shape=cylinder, fillcolor="#EFF6FF", color="#3B82F6"];
+  users -> client [label="Browser"];
+  client -> api [label="HTTPS / JSON + JWT"];
+  api -> auth;
+  auth -> exams;
+  auth -> subs;
+  exams -> db;
+  subs -> db;
+  api -> ws [dir=both, label="events"];
+  ws -> client [label="real-time"];
+}

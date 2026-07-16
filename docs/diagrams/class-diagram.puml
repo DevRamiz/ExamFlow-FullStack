@@ -1,0 +1,80 @@
+@startuml
+class User {
+  +id: number
+  +name: string
+  +email: string
+  +role: string
+}
+
+class Exam {
+  +id: number
+  +title: string
+  +durationMinutes: number
+  +status: string
+  +questions: Question[]
+  +publish()
+  +close()
+}
+
+class Question {
+  +id: string
+  +type: string
+  +text: string
+  +points: number
+  +options: string[]
+  +correctAnswer: string
+}
+
+class Submission {
+  +id: number
+  +answers: Answer[]
+  +status: string
+  +autoScore: number
+  +manualScore: number
+  +submit()
+  +grade()
+}
+
+class Answer {
+  +questionId: string
+  +value: string
+  +automaticPoints: number
+  +manualPoints: number
+  +teacherComment: string
+}
+
+class AuthService {
+  +registerStudent()
+  +login()
+  +getCurrentUser()
+}
+
+class ExamService {
+  +createExam()
+  +updateExam()
+  +publishExam()
+  +listExams()
+}
+
+class SubmissionService {
+  +startSubmission()
+  +autosaveSubmission()
+  +submitExam()
+  +gradeSubmission()
+}
+
+class GradingService {
+  +gradeAutomaticQuestions()
+  +applyManualGrades()
+}
+
+User "1" -- "*" Exam : lecturer
+User "1" -- "*" Submission : student
+Exam "1" *-- "*" Question
+Exam "1" -- "*" Submission
+Submission "1" *-- "*" Answer
+ExamService ..> Exam
+SubmissionService ..> Submission
+SubmissionService ..> GradingService
+AuthService ..> User
+@enduml

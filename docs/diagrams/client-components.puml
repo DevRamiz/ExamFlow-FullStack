@@ -1,0 +1,23 @@
+@startuml
+package "React Client" {
+  [App Router] --> [AuthProvider]
+  [App Router] --> [ProtectedRoute]
+  [ProtectedRoute] --> [Layout]
+  [Layout] --> [Role Navigation]
+  [Layout] --> [WebSocket Hook]
+  [Layout] --> [Teacher Pages]
+  [Layout] --> [Student Pages]
+
+  [Teacher Pages] --> [Dashboard]
+  [Teacher Pages] --> [Exam List]
+  [Teacher Pages] --> [Exam Editor]
+  [Teacher Pages] --> [Submission Review]
+
+  [Student Pages] --> [Available Exams]
+  [Student Pages] --> [Take Exam]
+  [Student Pages] --> [Results]
+
+  [Teacher Pages] --> [HTTP API Client]
+  [Student Pages] --> [HTTP API Client]
+}
+@enduml

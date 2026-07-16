@@ -1,0 +1,14 @@
+digraph S {
+  graph [rankdir=LR, bgcolor="white", pad=0.4, nodesep=0.35, ranksep=0.7, fontname="Arial"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#CBD5E1", fontname="Arial"];
+  edge [color="#64748B", fontname="Arial"];
+  a [label="1. Lecturer opens submission", fillcolor="#EEF2FF", color="#6366F1"];
+  b [label="2. API loads exam, answers and student"];
+  c [label="3. Lecturer assigns open-question points"];
+  d [label="4. Service calculates final score", fillcolor="#ECFDF5", color="#10B981"];
+  e [label="5. PostgreSQL stores grade + feedback", shape=cylinder, fillcolor="#EFF6FF", color="#3B82F6"];
+  f [label="6. Lecturer publishes all graded results"];
+  g [label="7. WebSocket notifies students", fillcolor="#FFF7ED", color="#FB923C"];
+  h [label="8. Student views score and feedback"];
+  a->b->c->d->e->f->g->h;
+}
