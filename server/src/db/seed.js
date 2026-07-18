@@ -62,15 +62,27 @@ try {
 
   await pool.query(
     `INSERT INTO exams (lecturer_id, title, description, duration_minutes, status, questions, published_at)
-     SELECT $1, $2, $3, $4, 'published', $5::jsonb, NOW()
-     WHERE NOT EXISTS (SELECT 1 FROM exams WHERE title = $2 AND lecturer_id = $1)`,
+     SELECT $1::integer, $2::varchar(180), $3::text, $4::integer,
+            'published'::varchar(20), $5::jsonb, NOW()
+     WHERE NOT EXISTS (
+       SELECT 1
+       FROM exams
+       WHERE title = $2::varchar(180)
+         AND lecturer_id = $1::integer
+     )`,
     [teacherId, "Web Development Fundamentals", "A sample published exam for the final-project demonstration.", 45, JSON.stringify(sampleQuestions)]
   );
 
   await pool.query(
     `INSERT INTO exams (lecturer_id, title, description, duration_minutes, status, questions)
-     SELECT $1, $2, $3, $4, 'draft', $5::jsonb
-     WHERE NOT EXISTS (SELECT 1 FROM exams WHERE title = $2 AND lecturer_id = $1)`,
+     SELECT $1::integer, $2::varchar(180), $3::text, $4::integer,
+            'draft'::varchar(20), $5::jsonb
+     WHERE NOT EXISTS (
+       SELECT 1
+       FROM exams
+       WHERE title = $2::varchar(180)
+         AND lecturer_id = $1::integer
+     )`,
     [teacherId, "Draft React Exam", "A draft that demonstrates the lecturer workflow.", 30, JSON.stringify(sampleQuestions.slice(0, 2))]
   );
 

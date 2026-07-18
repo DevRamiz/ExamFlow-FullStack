@@ -118,7 +118,8 @@ export async function submitExam(submissionId, studentId, submittedAnswers) {
   const result = await pool.query(
     `UPDATE submissions
      SET answers = $1::jsonb, auto_score = $2, final_score = $3,
-         status = $4, submitted_at = NOW(), graded_at = CASE WHEN $4 = 'graded' THEN NOW() ELSE NULL END,
+         status = $4::varchar(20), submitted_at = NOW(),
+         graded_at = CASE WHEN $4::varchar(20) = 'graded' THEN NOW() ELSE NULL END,
          updated_at = NOW()
      WHERE id = $5 RETURNING *`,
     [JSON.stringify(answers), autoScore, finalScore, status, submissionId]
